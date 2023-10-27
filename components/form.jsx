@@ -5,7 +5,7 @@ import {useState} from 'react';
 export default function InputDisplay(){
 
     const [allData, setAllData] = useState([])
-    // console.log("allData", allData);
+    console.log("allData", allData);
 
     const getColor = (value) =>{
         if (value > 0){
@@ -92,7 +92,7 @@ export default function InputDisplay(){
                             {
                                 allData.map((each, index) => (
                                     <tr key={index} id={"data" + index}>
-                                        <td id={"price" + index} className={getColor(each.price)}>{each.price}</td>
+                                        <td className={getColor(each.price)}>{each.price}</td>
                                         <td>{each.desc}</td>
                                         <td><button onClick={() => handleDelete(index)}>刪除</button></td>
                                     </tr>
