@@ -1,0 +1,110 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mainContainer hr{
+    margin: 30px 0px;
+}
+
+.inputFormContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.inputFormTitle{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.inputForm > form{
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.inputForm > form > *{
+    margin: 0px 10px; 
+}
+
+.debCred{
+    width: 80px;
+    height: 36px;
+    text-align: center;
+}
+
+.price{
+    width: 80px;
+    height: inherit;
+}
+
+.positive{
+    color: green;
+}
+
+.neutral{
+    color: black;
+}
+
+.negative{
+    color: red;
+}
+
+.desc{
+    height: inherit;
+    width: 280px;
+}
+
+.inputForm > form > button{
+    height: 36px;
+    width: 80px;
+    cursor: pointer
+}
+
+.tableContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.tableContainer table{
+    width: 600px;
+}
+
+.tableContainer table thead{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.tableContainer table td:first-child{
+    width: 30%;
+}
+
+.tableContainer table td:nth-child(2){
+    width: 60%;
+}
+
+.tableContainer table td:last-child{
+    width: 10%;
+}
+
+.tableContainer table tbody{
+    font-size: 18px;
+    height: 30px;
+}
+
+.tableContainer table tbody button{
+    height: 30px;
+    width: 50px;
+}
+
+.total{
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: -100px;
+    font-weight: 700;
+}
