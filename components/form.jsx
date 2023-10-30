@@ -1,11 +1,41 @@
 "use client"
 import styles from '../styles/form.module.css';
 import {useState} from 'react';
+import {useEffect} from 'react';
+import {getData, createData, deleteDataById} from '../firebase/dataCRUD';
 
 export default function InputDisplay(){
 
     const [allData, setAllData] = useState([])
-    console.log("allData", allData);
+    // console.log("out", allData)
+
+    const priceConverter = (debCred, price) => {
+        if(debCred == "收入"){
+            price = parseInt(price)
+        }
+        else{
+            price = -price
+        }
+        return price
+    }
+
+    const loadData = async () => {
+        const dataSet = []
+        const data = await getData()
+        data.map((each) => {
+            let id = each.id
+            let debCred = each.debCred
+            let price = priceConverter(each.debCred, each.price)
+            let desc = each.desc
+            dataSet.push({id, debCred, price, desc})
+        })
+        // console.log(dataSet)
+        setAllData(dataSet);
+    }
+
+    useEffect(() => {
+        loadData();
+    }, [])
 
     const getColor = (value) =>{
         if (value > 0){
@@ -20,34 +50,20 @@ export default function InputDisplay(){
     }
 
     function InputForm(){
-    
+
         let [debCred, setDebCred] = useState("收入")
         let [price, setPrice] = useState("")
         let [desc, setDesc] = useState("")
         
-        function handleSubmit(e){
+        async function handleSubmit(e){
             e.preventDefault();
-            // console.log(debCred, price, typeof(price), desc)
             if(price == "" || desc == ""){
                 alert("請輸入資料")
                 return
             }
-            if(debCred == "收入"){
-                price = parseInt(price)
-            }
-            else{
-                price = -price
-            }
-            // console.log("Submitted")
-            setAllData(
-                [...allData,
-                    {debCred, price, desc}
-                ]
-            );
-            setDebCred("收入");
-            setPrice("");
-            setDesc("");
-            // console.log(price, typeof(price))
+            let timestamp = Date.now();
+            await createData(debCred, price, desc, timestamp)
+            await loadData();
         }
 
         return(
@@ -68,15 +84,17 @@ export default function InputDisplay(){
         )
     }
 
+    async function handleDelete(id){
+        await deleteDataById(id);
+        await loadData();
+    }
+
     function Display(allData){
         allData = allData.allData
 
-        function handleDelete(index){
-            // console.log("Delete", index, allData[index])
-            allData.splice(index, 1)
-            // console.log(allData)
-            setAllData([...allData])
-        }
+        let sortedData = allData.sort((a, b) => {
+            (a.index > b.index) ? 1 : (a.index < b.index) ? -1 : 0
+        })
 
         return(
             <div className={styles.tableContainer}>
@@ -91,13 +109,13 @@ export default function InputDisplay(){
                     <tbody>
                             {
                                 allData.map((each, index) => (
-                                    <tr key={index} id={"data" + index}>
+                                    <tr key={index} id={each.id}>
                                         <td className={getColor(each.price)}>{each.price}</td>
                                         <td>{each.desc}</td>
-                                        <td><button onClick={() => handleDelete(index)}>刪除</button></td>
+                                        <td><button onClick={() => handleDelete(each.id)}>刪除</button></td>
                                     </tr>
                                 ))
-                            }   
+                            }
                     </tbody>
                 </table>
             </div>
@@ -110,11 +128,11 @@ export default function InputDisplay(){
         
         allData.forEach((data) => {
             total += data.price
-            // console.log(total)
         })
         return(
             <div className={styles.total}>小計： 
-                <span className={getColor(total)}>${total}</span>
+                {total < 0 ? <span className={styles.negative}>${total}</span> : <span className={styles.positive}>${total}</span>}
+                {total < 0 && <span className={styles.negative}><br /><br />WARNING</span>}
             </div>
         )
     }

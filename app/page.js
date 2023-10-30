@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link'
 import styles from '../styles/page.module.css';
-import layouStyle from './layout.module.css'
+import layoutStyle from './layout.module.css'
 
 export const metadata = {
   title : "首頁"
@@ -30,8 +30,8 @@ function WelcomeMessage(){
 
 function ToAccountingPage(){
   return(
-    <div className={layouStyle.btnContainer}>
-        <Link href="/accounts" className={layouStyle.btn}>記賬功能</Link>
+    <div className={layoutStyle.btnContainer}>
+        <Link href="/accounts" className={layoutStyle.btn}>記賬功能</Link>
     </div>
   )
 }
