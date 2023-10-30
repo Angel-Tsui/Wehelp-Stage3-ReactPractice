@@ -15,7 +15,6 @@ function ToHome(){
 }
 
 export default function AccountingPage(){
-
     return(
         <>
             <InputDisplay />
