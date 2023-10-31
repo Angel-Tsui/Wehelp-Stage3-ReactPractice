@@ -28,24 +28,47 @@
     border-radius: 50%;
 }
 
-/* .btnContainer{
+.userLog{
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 100px
+    margin-top: 40px;
+    gap: 80px;
+    height: 180px;
+    align-items: center;
 }
 
-.btn{
-    border: 2px solid rgb(5, 5, 61);
-    border-radius: 5px;
-    background-color: rgb(225, 225, 244);
-    padding: 8px;
-    font-size: 14px;
-    color: rgb(5, 5, 61);
+.headers{
+    background-color: rgb(5, 5, 61);
     font-weight: 500;
-    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    text-align: center;
 }
 
-.btn:hover{
-    box-shadow: 1px 1px 3px rgb(5, 5, 61);
-    font-weight: 700;
-} */
+.signIn form,
+.signUp form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    width: 170px;
+}
+
+.signIn form input, 
+.signUp form input{
+    padding: 8px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.userLogContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}

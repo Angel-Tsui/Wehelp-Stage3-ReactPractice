@@ -1,13 +1,16 @@
 "use client"
+import layoutStyles from '../app/layout.module.css'
 import styles from '../styles/form.module.css';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {getData, createData, deleteDataById} from '../firebase/dataCRUD';
+import {verify, getUserInfoFromToken} from '../components/verify'
 
 export default function InputDisplay(){
 
+    verify();
+    
     const [allData, setAllData] = useState([])
-    // console.log("out", allData)
 
     const priceConverter = (debCred, price) => {
         if(debCred == "收入"){
@@ -29,7 +32,6 @@ export default function InputDisplay(){
             let desc = each.desc
             dataSet.push({id, debCred, price, desc})
         })
-        // console.log(dataSet)
         setAllData(dataSet);
     }
 
@@ -39,17 +41,23 @@ export default function InputDisplay(){
 
     const getColor = (value) =>{
         if (value > 0){
-            return styles.positive
+            return layoutStyles.positive
         }
         else if (value == 0){
-            return styles.neutral
+            return layoutStyles.neutral
         }
         else{
-            return styles.negative
+            return layoutStyles.negative
         }
     }
 
     function InputForm(){
+
+        function getName(){
+            let userInfo = getUserInfoFromToken()
+            let signedInEmail = userInfo["userEmail"]
+            return signedInEmail
+        }
 
         let [debCred, setDebCred] = useState("收入")
         let [price, setPrice] = useState("")
@@ -69,7 +77,7 @@ export default function InputDisplay(){
         return(
                 <div className={styles.inputFormContainer}>
                     <div className={styles.inputForm}>
-                        <div className={styles.inputFormTitle}>請輸入最新款項</div>
+                        <div className={styles.inputFormTitle}>你好，{getName()}，請輸入最新款項</div>
                         <form>
                             <select value={debCred} onChange={(e) => setDebCred(e.target.value)} className={styles.debCred}>
                                 <option value="收入">收入</option>
@@ -131,8 +139,8 @@ export default function InputDisplay(){
         })
         return(
             <div className={styles.total}>小計： 
-                {total < 0 ? <span className={styles.negative}>${total}</span> : <span className={styles.positive}>${total}</span>}
-                {total < 0 && <span className={styles.negative}><br /><br />WARNING</span>}
+                {total < 0 ? <span className={layoutStyles.negative}>${total}</span> : <span className={layoutStyles.positive}>${total}</span>}
+                {total < 0 && <span className={layoutStyles.negative}><br /><br />WARNING</span>}
             </div>
         )
     }
