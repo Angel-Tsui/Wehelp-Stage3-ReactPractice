@@ -1,7 +1,3 @@
-// Import the functions you need from the SDKs you need
-// import {initializeApp} from 'firebase/app';
-// import {getFirestore} from 'firebase/firestore';
-// import {getAuth} from 'firebase/auth';
 import firebase from 'firebase/app'
 import '@firebase/firestore'
 import '@firebase/auth'
@@ -21,15 +17,6 @@ if(!firebase.apps.length){
 }
 
 const firestore = firebase.firestore();
+const auth = firebase.auth();
 
-export { firestore };
-
-// Import the functions you need from the SDKs you need
-// import {initializeApp} from 'firebase/app';
-// import {getFirestore} from 'firebase/firestore';
-// import {getAuth} from 'firebase/auth';
-// const db2 = getFirestore(app);
-// const db = firebaseApp.firestore();
-// const auth = getAuth();
-
-// export {db, auth}
+export { firestore, auth };

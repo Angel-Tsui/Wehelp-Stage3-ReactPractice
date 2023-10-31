@@ -1,7 +1,15 @@
 import {firestore} from './firebase'
+import {getUserInfoFromToken} from '../components/verify'
+
+function getId(){
+    let userInfo = getUserInfoFromToken()
+    let signedInId = userInfo["userId"]
+    return signedInId
+}
 
 const getData = async () => {
-    const snapshot = await firestore.collection("data").orderBy("timestamp").get()
+    const userid = await getId()
+    const snapshot = await firestore.collection("data").where("userid", "==", userid).orderBy("timestamp").get()
     const data = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -10,7 +18,8 @@ const getData = async () => {
 }
 
 const createData = async (debCred, price, desc, timestamp) => {
-    const ref = await firestore.collection("data").add({debCred, price, desc, timestamp});
+    const userid = await getId()
+    const ref = await firestore.collection("data").add({debCred, price, desc, timestamp, userid});
 
     const newData = {
         id : ref.id,
