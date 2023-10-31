@@ -3,7 +3,7 @@
 export const userToken = getToken()
 
 function getToken(){
-  let userToken = localStorage.getItem("token")
+  let userToken = window.localStorage.getItem("token")
   return userToken
 }
 

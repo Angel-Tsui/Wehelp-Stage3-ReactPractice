@@ -124,7 +124,7 @@ export default function UserLog(){
             else{
                 let userToken = {"userId" : signInStatus["user"].uid, "userEmail" : signInStatus["user"].email}
                 setUserStatus({"success" : true, "user" : userToken})
-                localStorage.setItem("token", JSON.stringify(userToken))
+                window.localStorage.setItem("token", JSON.stringify(userToken))
                 let confirmUser = signInOrSignOut()
                 if (confirmUser){
                     window.location = "/"
@@ -133,7 +133,7 @@ export default function UserLog(){
         }
     
         function handleSignOut(e){
-            localStorage.removeItem("token")
+            window.localStorage.removeItem("token")
         }
 
         return(
