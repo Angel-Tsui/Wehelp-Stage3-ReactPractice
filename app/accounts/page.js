@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import layoutStyle from '../layout.module.css';
-import InputDisplay from '../../components/form.jsx'
+// import InputDisplay from '../../components/form.jsx'
+import dynamic from "next/dynamic"
+const InputDisplay = dynamic(() => import("../../components/form.jsx"), {ssr : false})
 
 export const metadata = {
     title : "記賬"

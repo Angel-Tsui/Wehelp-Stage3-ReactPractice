@@ -1,6 +1,8 @@
 // import Image from 'next/image';
 import styles from '../styles/page.module.css';
-import UserLog from '../components/userLog'
+// import UserLog from '../components/userLog'
+import dynamic from 'next/dynamic';
+const UserLog = dynamic(() => import("../components/userLog"), {ssr : false});
 
 export const metadata = {
   title : "首頁"
